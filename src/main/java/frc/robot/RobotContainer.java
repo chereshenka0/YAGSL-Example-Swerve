@@ -14,12 +14,13 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.IntakeSequentialCommand;
+import frc.robot.subsystems.LEDDriver;
 import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -145,8 +146,7 @@ public class RobotContainer{
       drivePs5Controller.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       drivePs5Controller.R1().onTrue(Commands.none());
       drivePs5Controller.R1().whileTrue(new IntakeCommand(0.3, intake));//intake
-      drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake));//outtake
-      drivePs5Controller.triangle().whileTrue(new IntakeSequentialCommand(intake));
+      drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake).until(intake::hasCoral));//outtake
       
     }
   }

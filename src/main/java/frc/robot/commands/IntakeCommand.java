@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.Value;
 
+import com.ctre.phoenix6.hardware.CANrange;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.swervedrive.Intake;
@@ -31,7 +33,6 @@ public class IntakeCommand extends Command {
   @Override
   public void execute() {
     intake.setSpeed(value);
-    //intake.setSpeed(-0.3);
   }
 
   // Called once the command ends or is interrupted.
@@ -43,6 +44,7 @@ public class IntakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // return intake.hasCoral();
     return false;
   }
 }
