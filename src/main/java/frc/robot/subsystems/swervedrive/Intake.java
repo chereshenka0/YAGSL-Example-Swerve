@@ -4,26 +4,53 @@
 
 package frc.robot.subsystems.swervedrive;
 
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.hardware.CANrange;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   private SparkMax intakeMotor;
+  private CANrange rangeSensor;
 
   public Intake() {
-   intakeMotor = new SparkMax(3, MotorType.kBrushless);
+    intakeMotor = new SparkMax(3, MotorType.kBrushless);
+    rangeSensor = new CANrange(5);
   }
 
   public void setSpeed(double speed){
     intakeMotor.set(speed);
   }
 
+  /*public StatusSignal<Boolean> hasCoral(){
+    // if(rangeSensor.getDistance(false) != null){
+    //   return true;
+    // }else{
+    //   return false;
+    // }
+
+    return rangeSensor.getIsDetected();
+  }*/
+
+  public StatusSignal<Boolean> getIsDetected(boolean refresh){
+    return rangeSensor.getIsDetected();
+  }
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("CANRange", rangeSensor.getIsDetected().getValue());
+    SmartDashboard.putNumber("CANRangeDistance", rangeSensor.getDistance().getValueAsDouble());
+  }
+
+  public void off() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'off'");
   }
 }
