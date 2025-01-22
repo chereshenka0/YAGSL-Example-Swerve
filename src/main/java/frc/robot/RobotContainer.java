@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeSequentialCommand;
 import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -143,6 +144,8 @@ public class RobotContainer{
       drivePs5Controller.R1().onTrue(Commands.none());
       drivePs5Controller.R1().whileTrue(new IntakeCommand(0.3, intake));//intake
       drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake));//outtake
+      drivePs5Controller.triangle().whileTrue(new IntakeSequentialCommand(intake));
+      
     }
   }
 

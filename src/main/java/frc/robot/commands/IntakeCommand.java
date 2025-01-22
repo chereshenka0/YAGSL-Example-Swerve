@@ -38,7 +38,6 @@ public class IntakeCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     intake.setSpeed(0);
-    //intake.setSpeed(0);
   }
 
   // Returns true when the command should end.

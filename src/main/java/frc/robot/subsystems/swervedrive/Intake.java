@@ -27,25 +27,14 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
-  /*public StatusSignal<Boolean> hasCoral(){
-    // if(rangeSensor.getDistance(false) != null){
-    //   return true;
-    // }else{
-    //   return false;
-    // }
-
-    return rangeSensor.getIsDetected();
-  }*/
-
-  public StatusSignal<Boolean> getIsDetected(boolean refresh){
-    return rangeSensor.getIsDetected();
+  public boolean hasCoral() {
+    return rangeSensor.getIsDetected().getValue();
   }
-
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("CANRange", rangeSensor.getIsDetected().getValue());
+    SmartDashboard.putBoolean("CANRange", hasCoral());
     SmartDashboard.putNumber("CANRangeDistance", rangeSensor.getDistance().getValueAsDouble());
   }
 
