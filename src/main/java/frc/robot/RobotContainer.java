@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.led.CANdle;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeSequentialCommand;
+import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -32,7 +34,7 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer{
    private Intake intake = new Intake();
-   private LEDDriver ledDriver = new LEDDriver();
+   private LightsSubsystem ledDriver = new LightsSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandPS5Controller drivePs5Controller = new CommandPS5Controller(0);

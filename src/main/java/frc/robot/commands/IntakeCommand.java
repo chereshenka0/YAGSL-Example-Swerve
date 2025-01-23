@@ -45,4 +45,9 @@ public class IntakeCommand extends Command {
   public boolean isFinished() {
     return false;
   }
+
+  public Command until(Object condition) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'until'");
+  }
 }
