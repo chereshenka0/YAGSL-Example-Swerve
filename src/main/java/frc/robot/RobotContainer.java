@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ElevatorCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LEDDriver;
 import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -34,6 +36,7 @@ import swervelib.SwerveInputStream;
 public class RobotContainer{
    private Intake intake = new Intake();
    private LEDDriver ledDriver = new LEDDriver();
+   private Elevator elevator = new Elevator();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandPS5Controller drivePs5Controller = new CommandPS5Controller(0);
@@ -135,19 +138,20 @@ public class RobotContainer{
       drivePs5Controller.L1().onTrue(Commands.none());
       drivePs5Controller.R1().onTrue(Commands.none());
     } else{
-      drivePs5Controller.cross().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      drivePs5Controller.square().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      drivePs5Controller.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      drivePs5Controller.triangle().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       drivePs5Controller.circle().whileTrue(
           drivebase.driveToPose(
               new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
                               );
       drivePs5Controller.create().whileTrue(Commands.none());
       drivePs5Controller.create().whileTrue(Commands.none());
-      drivePs5Controller.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      drivePs5Controller.square().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       drivePs5Controller.R1().onTrue(Commands.none());
       drivePs5Controller.R1().whileTrue(new IntakeCommand(0.3, intake));//intake
       drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake).until(intake::hasCoral));//outtake
-      
+      drivePs5Controller.R2().whileTrue(new ElevatorCommand(0.2, elevator));
+      drivePs5Controller.L2().whileTrue(new ElevatorCommand(-0.2, elevator));
     }
   }
 
