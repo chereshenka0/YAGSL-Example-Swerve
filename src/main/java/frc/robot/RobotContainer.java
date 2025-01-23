@@ -149,6 +149,7 @@ public class RobotContainer{
       drivePs5Controller.R1().whileTrue(new IntakeCommand(0.3, intake));//intake
       drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake));//outtake
       drivePs5Controller.triangle().whileTrue(new IntakeSequentialCommand(intake));
+
       
     }
   }
