@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-public class LightsSubsystem extends SubsystemBase {
+public class LEDStrip extends SubsystemBase {
     private static final CANdle candle = new CANdle(7);
 
     // Team colors
@@ -33,7 +33,9 @@ public class LightsSubsystem extends SubsystemBase {
     public static final Color black = new Color(0, 0, 0);
     public static final Color red = new Color(255, 0, 0);
 
-    public LightsSubsystem() {
+    public static final String Color = null;
+
+    public LEDStrip() {
         CANdleConfiguration candleConfiguration = new CANdleConfiguration();
         candleConfiguration.statusLedOffWhenActive = true;
         candleConfiguration.disableWhenLOS = false;
@@ -42,23 +44,10 @@ public class LightsSubsystem extends SubsystemBase {
         candleConfiguration.vBatOutputMode = VBatOutputMode.Modulated;
         candle.configAllSettings(candleConfiguration, 100);
 
-        setDefaultCommand(defaultCommand());
     }
 
     public void setBrightness(double percent) {
         candle.configBrightnessScalar(percent, 100);
-    }
-
-    public Command defaultCommand() {
-        return runOnce(() -> {
-            LEDSegment.BatteryIndicator.fullClear();
-            LEDSegment.PressureIndicator.fullClear();
-            LEDSegment.MastEncoderIndicator.fullClear();
-            LEDSegment.BoomEncoderIndicator.fullClear();
-            LEDSegment.WristEncoderIndicator.fullClear();
-
-            LEDSegment.MainStrip.setColor(orange);
-        });
     }
 
     public Command clearSegmentCommand(LEDSegment segment) {
@@ -158,4 +147,13 @@ public class LightsSubsystem extends SubsystemBase {
 
     //     //     return new Color(newRed, newGreen, newBlue);
          }
+
+    public Object setColorRGB(int r, int g, int b) {
+        throw new UnsupportedOperationException("Unimplemented method 'setColorRGB'");
+    }
+
+    public void setFlowAnimation(int i, int j, int k, int l, int m, int n) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setFlowAnimation'");
+    }
     }

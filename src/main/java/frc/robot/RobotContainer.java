@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeSequentialCommand;
-import frc.robot.subsystems.LightsSubsystem;
+import frc.robot.subsystems.LEDStrip;
 import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -34,7 +34,7 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer{
    private Intake intake = new Intake();
-   private LightsSubsystem ledDriver = new LightsSubsystem();
+   private LEDStrip ledDriver = new LEDStrip();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandPS5Controller drivePs5Controller = new CommandPS5Controller(0);
@@ -144,12 +144,11 @@ public class RobotContainer{
                               );
       drivePs5Controller.create().whileTrue(Commands.none());
       drivePs5Controller.create().whileTrue(Commands.none());
-      drivePs5Controller.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+    //  drivePs5Controller.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       drivePs5Controller.R1().onTrue(Commands.none());
-      drivePs5Controller.R1().whileTrue(new IntakeCommand(0.3, intake));//intake
-      drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake));//outtake
+      //drivePs5Controller.R1().whileTrue(new IntakeCommand(0.3, intake));//intake
+      //drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake));//outtake
       drivePs5Controller.triangle().whileTrue(new IntakeSequentialCommand(intake));
-
       
     }
   }
