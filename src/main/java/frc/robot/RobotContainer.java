@@ -22,8 +22,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ElevatorCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LEDDriver;
-import frc.robot.subsystems.swervedrive.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
@@ -150,8 +150,8 @@ public class RobotContainer{
       drivePs5Controller.R1().onTrue(Commands.none());
       drivePs5Controller.R1().whileTrue(new IntakeCommand(0.3, intake));//intake
       drivePs5Controller.L1().whileTrue(new IntakeCommand(-0.3, intake).until(intake::hasCoral));//outtake
-      drivePs5Controller.R2().whileTrue(new ElevatorCommand(0.2, elevator));
-      drivePs5Controller.L2().whileTrue(new ElevatorCommand(-0.2, elevator));
+      drivePs5Controller.R2().whileTrue(new ElevatorCommand(1, elevator));
+      drivePs5Controller.L2().whileTrue(new ElevatorCommand(-1, elevator));
     }
   }
 
